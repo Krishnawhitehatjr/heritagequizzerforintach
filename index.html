@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTACH GK Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>INTACH GK Quiz</h1>
+        <p id="question">Press "Start Quiz" to begin.</p>
+        <button onclick="showAnswer()">Show Answer</button>
+        <button onclick="nextQuestion()">Next Question</button>
+        <p id="answer" style="display:none;"></p>
+    </div>
+
+    <script>
+        const questions = [
+    { question: "Which Indian state is known for the traditional dance form Yakshagana?", answer: "Karnataka" },
+    { question: "Which Indian city is known as the 'Manchester of India' due to its thriving textile industry?", answer: "Ahmedabad" },
+    { question: "Who wrote the ancient Indian text 'Arthashastra,' which is a treatise on politics and economics?", answer: "Kautilya (Chanakya)" },
+    { question: "Which Mughal ruler was known for his patronage of the arts and the construction of the Red Fort in Delhi?", answer: "Shah Jahan" },
+    { question: "Which Indian river is also known as the 'Sorrow of Bengal' due to its destructive flooding?", answer: "Damodar River" },
+    { question: "What is the name of the ancient Indian board game that is considered a precursor to modern chess?", answer: "Chaturanga" },
+    { question: "Which Indian state is known for the classical dance form Manipuri?", answer: "Manipur" },
+    { question: "Which famous Indian fort is located in the city of Agra and is also a UNESCO World Heritage Site?", answer: "Agra Fort" },
+    { question: "Who was the first Indian to be awarded the Bharat Ratna posthumously?", answer: "Lal Bahadur Shastri" },
+    { question: "Which Indian festival celebrates the harvest and is particularly popular in Punjab?", answer: "Baisakhi" },
+    { question: "Which Indian state is home to the Sunderbans, the largest mangrove forest in the world?", answer: "West Bengal" },
+    { question: "Which Mughal emperor was known for his poetic talents and his contributions to Persian literature?", answer: "Bahadur Shah Zafar" },
+    { question: "What is the name of the sacred mountain in South India that is associated with the deity Shiva?", answer: "Arunachala" },
+    { question: "Which Indian classical dance form is known for its elaborate footwork and is primarily associated with North India?", answer: "Kathak" },
+    { question: "Which Indian temple is located on an island at the confluence of three rivers and is considered one of the twelve Jyotirlingas?", answer: "Omkareshwar Temple" },
+    { question: "Who was the first Indian woman to receive the Bharat Ratna?", answer: "Indira Gandhi" },
+    { question: "Which Indian state is known for the traditional bamboo dance called Cheraw?", answer: "Mizoram" },
+    { question: "Which famous Indian author wrote 'The Guide,' which won the Sahitya Akademi Award?", answer: "R.K. Narayan" },
+    { question: "What is the name of the famous Mughal garden in Srinagar, also known as the 'Abode of Love'?", answer: "Shalimar Bagh" },
+    { question: "Which Indian state is known for the Bhimbetka rock shelters, which contain prehistoric cave paintings?", answer: "Madhya Pradesh" },
+    { question: "Which famous Indian monument is also known as the 'Palace of Winds'?", answer: "Hawa Mahal" },
+    { question: "Which Indian festival is celebrated with great fervor in Maharashtra and involves the immersion of Lord Ganesha idols?", answer: "Ganesh Chaturthi" },
+    { question: "Which Indian state is famous for the Rann of Kutch, a vast salt marsh?", answer: "Gujarat" },
+    { question: "Who was the first Indian cricketer to score 10,000 runs in Test cricket?", answer: "Sunil Gavaskar" },
+    { question: "Which Indian state is known for the classical dance form Kuchipudi?", answer: "Andhra Pradesh" },
+    { question: "Which famous Indian monument was built by Maharaja Sawai Pratap Singh in 1799?", answer: "Hawa Mahal" },
+    { question: "Which ancient Indian city was one of the capitals of the Maurya Empire and is now a UNESCO World Heritage Site?", answer: "Pataliputra (Patna)" },
+    { question: "Which Indian festival is also known as the 'Festival of Colors'?", answer: "Holi" },
+    { question: "Which Indian state is famous for the rock-cut caves at Ellora and Ajanta?", answer: "Maharashtra" },
+    { question: "Who was the first Indian woman to win an individual Olympic medal?", answer: "Karnam Malleswari (Bronze, Weightlifting, 2000 Sydney Olympics)" },
+    { question: "Which Indian state is known for the traditional martial art form Kalaripayattu?", answer: "Kerala" },
+    { question: "Which Indian river is known as the 'Ganga of the South'?", answer: "Godavari River" },
+    { question: "Which Indian freedom fighter is known for the slogan 'Inquilab Zindabad'?", answer: "Bhagat Singh" },
+    { question: "Which Indian city is famous for its backwaters and houseboats?", answer: "Alleppey (Alappuzha), Kerala" },
+    { question: "Which Indian state is famous for the traditional dance form Kathakali?", answer: "Kerala" },
+    { question: "Which famous Indian fort is located in Jodhpur and is also known as the 'Fort of the Sun'?", answer: "Mehrangarh Fort" },
+    { question: "Which Indian festival is celebrated by flying kites and marks the transition of the sun into the zodiac sign Capricorn?", answer: "Makar Sankranti" },
+    { question: "Which Indian state is famous for the textile art of Pattachitra?", answer: "Odisha" },
+    { question: "Which Indian king is known for his rock edicts that promote non-violence and the spread of Buddhism?", answer: "Ashoka the Great" },
+    { question: "Which Indian state is known for the Chhau dance, a traditional tribal dance?", answer: "Odisha, West Bengal, and Jharkhand" },
+    { question: "Who was the first Indian woman to win the Miss Universe title?", answer: "Sushmita Sen (1994)" },
+    { question: "Which famous Indian architect is credited with designing the city of Chandigarh?", answer: "Le Corbusier" },
+    { question: "Which Indian temple is located on a hill in Andhra Pradesh and is one of the richest temples in the world?", answer: "Tirumala Venkateswara Temple" },
+    { question: "Which Indian state is known for the famous architectural marvel, the Konark Sun Temple?", answer: "Odisha" },
+    { question: "Which Indian freedom fighter is known for the Chauri Chaura incident that led to the suspension of the Non-Cooperation Movement?", answer: "Mahatma Gandhi" },
+    { question: "Which Indian classical dance form originated in the temples of Tamil Nadu and is known for its intricate footwork and expressive hand gestures?", answer: "Bharatanatyam" },
+    { question: "Which Indian river is the longest river that flows entirely within India?", answer: "Godavari River" },
+    { question: "Which Indian state is famous for the traditional dance form Bihu?", answer: "Assam" },
+    { question: "Which Indian freedom fighter was known as the 'Frontier Gandhi'?", answer: "Khan Abdul Ghaffar Khan" },
+    { question: "Which Indian architectural structure is known as the 'Temple City of India' and is famous for its large number of temples?", answer: "Bhubaneswar" }
+    // Add more questions here if needed
+    ];
+        let currentQuestion = {};
+
+        function nextQuestion() {
+            document.getElementById("answer").style.display = "none";
+            currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+            document.getElementById("question").innerText = currentQuestion.question;
+        }
+
+        function showAnswer() {
+            document.getElementById("answer").innerText = "Answer: " + currentQuestion.answer;
+            document.getElementById("answer").style.display = "block";
+        }
+
+        nextQuestion(); // Load the first question when the page loads
+    </script>
+</body>
+</html>
